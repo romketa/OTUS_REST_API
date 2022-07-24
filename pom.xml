@@ -12,11 +12,14 @@
         <maven.compiler.source>18</maven.compiler.source>
         <maven.compiler.target>18</maven.compiler.target>
 
+        <assertj.version>3.23.1</assertj.version>
         <lombok.version>1.18.22</lombok.version>
         <rest.assured.version>4.3.0</rest.assured.version>
         <rest.assured.validator.version>4.3.1</rest.assured.validator.version>
         <junit.jupiter.version>5.6.2</junit.jupiter.version>
         <hamcrest.version>2.2</hamcrest.version>
+
+        <base.url>https://petstore.swagger.io/v2</base.url>
     </properties>
 
     <dependencies>
@@ -50,7 +53,12 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
-            <scope>test</scope>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>${assertj.version}</version>
         </dependency>
     </dependencies>
 

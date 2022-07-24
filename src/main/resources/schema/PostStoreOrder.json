@@ -1,0 +1,24 @@
+{
+  "type": "object",
+  "required": [],
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "petId": {
+      "type": "number"
+    },
+    "quantity": {
+      "type": "number"
+    },
+    "shipDate": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "complete": {
+      "type": "boolean"
+    }
+  }
+}
