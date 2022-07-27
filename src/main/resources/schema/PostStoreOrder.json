@@ -1,24 +1,40 @@
 {
-  "type": "object",
-  "required": [],
-  "properties": {
-    "id": {
-      "type": "number"
-    },
-    "petId": {
-      "type": "number"
-    },
-    "quantity": {
-      "type": "number"
-    },
-    "shipDate": {
-      "type": "string"
-    },
-    "status": {
-      "type": "string"
-    },
-    "complete": {
-      "type": "boolean"
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/Welcome",
+  "definitions": {
+    "Welcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "petId": {
+          "type": "integer"
+        },
+        "quantity": {
+          "type": "integer"
+        },
+        "shipDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "status": {
+          "type": "string"
+        },
+        "complete": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "complete",
+        "id",
+        "petId",
+        "quantity",
+        "shipDate",
+        "status"
+      ],
+      "title": "Welcome"
     }
   }
 }

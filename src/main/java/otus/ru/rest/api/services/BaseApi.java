@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.given;
 public abstract class BaseApi {
 
     public static final String BASE_URL = System.getProperty("base.url");
-    public RequestSpecification reSpec;
+    public final RequestSpecification reSpec;
     public BaseApi() {
             reSpec = given()
                     .baseUri(BASE_URL)

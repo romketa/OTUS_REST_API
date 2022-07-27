@@ -1,7 +1,6 @@
 
 package otus.ru.rest.api.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,7 +16,7 @@ public class User {
     private String lastName;
     private String password;
     private String phone;
-    private Long userStatus;
+    private int userStatus;
     private String username;
 
 }
