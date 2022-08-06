@@ -24,7 +24,7 @@ public class StoreOrderTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Check that already deleted entity returns 404")
+    @DisplayName("Check that not exist order returns 404 Not Found")
     public void checkSecondCheck() {
         storeApi.checkThatOrderNotExist(storeApi.respSpecOrderNotFound());
     }
