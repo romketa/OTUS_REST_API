@@ -1,31 +1,31 @@
 package otus.ru.rest.api;
 
 import org.junit.jupiter.api.*;
-import otus.ru.rest.api.services.StoreApi;
 
 
-public class StoreOrderTest {
+public class StoreOrderTest extends BaseTest {
+
+    @BeforeEach
+    public void createOrder(){
+        storeApi.placeAnOrder(storeApi.respSpecStoreOrder());
+    }
+
+    @AfterEach
+    public void deleteOrder(){
+        storeApi.deletePurchasedOrder(storeApi.respSpecDeleteOrder())
+                .deletePurchasedOrder(storeApi.respSpecOrderNotFound());
+    }
+
 
     @Test
-    @DisplayName("Check creation an order, get created order and delete created order")
+    @DisplayName("Check creation an order")
     public void checkPostStoreOrder() {
-        
-        StoreApi storeApi = new StoreApi();
-
-        storeApi.placeAnOrder(storeApi.respSpecStoreOrder())
-                .findAndCheckPurchasedOrder(storeApi.respSpecStoreOrder())
-                .deletePurchasedOrder(storeApi.respSpecDeleteOrder());
+        storeApi.findAndCheckPurchasedOrder(storeApi.respSpecStoreOrder());
     }
 
     @Test
     @DisplayName("Check that already deleted entity returns 404")
     public void checkSecondCheck() {
-
-        StoreApi storeApi = new StoreApi();
-
-        storeApi.placeAnOrder(storeApi.respSpecStoreOrder())
-                .findAndCheckPurchasedOrder(storeApi.respSpecStoreOrder())
-                .deletePurchasedOrder(storeApi.respSpecDeleteOrder())
-                .deletePurchasedOrder(storeApi.respSpecDeleteOrderNotFound());
+        storeApi.checkThatOrderNotExist(storeApi.respSpecOrderNotFound());
     }
 }

@@ -1,11 +1,13 @@
 package otus.ru.rest.api.services;
 
+import com.github.javafaker.Faker;
 import io.restassured.RestAssured;
 import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.ValidatableResponse;
 import io.restassured.specification.ResponseSpecification;
 import otus.ru.rest.api.data.Status;
 import otus.ru.rest.api.dto.Store;
+
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
@@ -18,17 +20,13 @@ public class StoreApi extends BaseApi {
 
     private static final String STORE = "/store/order";
 
-    private static final int ID = 3;
+    private static final int ID = faker.number().randomDigitNotZero();
 
-    private static final int PET_ID = 2;
+    private static final int PET_ID = faker.number().randomDigitNotZero();
 
-    private static final int QUANTITY = 1;
+    private static final int QUANTITY = faker.number().randomDigitNotZero();
 
     private static final String CURRENT_DATE = getFormattedDate();
-
-    public StoreApi() {
-        super();
-    }
 
     private static String getFormattedDate() {
         return LocalDateTime.now().atZone(ZoneOffset.UTC).format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
@@ -70,14 +68,15 @@ public class StoreApi extends BaseApi {
                 .body("message", equalTo(String.valueOf(ID)));
     }
 
-    public ResponseSpecification respSpecDeleteOrderNotFound() {
+    public ResponseSpecification respSpecOrderNotFound() {
         return given()
                 .expect()
                 .statusCode(404)
-                .body("code", equalTo(404))
-                .body("type", equalTo("unknown"))
-                .body("message", equalTo("Order Not Found"));
+                .body("code", anyOf(equalTo(404), equalTo(1)))
+                .body("type", anyOf(equalTo("unknown"), equalTo("error")))
+                .body("message", anyOf(equalTo("Order Not Found"), equalTo("Order not found")));
     }
+
 
     public StoreApi placeAnOrder(ResponseSpecification respSpec) {
         System.out.println("|-----|-----| Send POST /store/order request");
@@ -89,16 +88,26 @@ public class StoreApi extends BaseApi {
                 .status(Status.APPROVED.getName())
                 .complete(true)
                 .build();
-        postStoreOrder(store, respSpec);
+        postStoreOrder(store, respSpecStoreOrder());
         return this;
     }
-
 
     public StoreApi findAndCheckPurchasedOrder(ResponseSpecification respSpec) {
         System.out.println("|-----|-----| Send GET /store/order/" + ID + " request");
         RestAssured.given()
                 .when()
                 .get(BASE_URL + STORE + "/" + ID)
+                .then()
+                .spec(respSpec)
+                .log().all();
+        return this;
+    }
+
+    public StoreApi checkThatOrderNotExist(ResponseSpecification respSpec) {
+        System.out.println("|-----|-----| Send GET /store/order/" + ID + " request");
+        RestAssured.given()
+                .when()
+                .get(BASE_URL + STORE + "/" + faker.number().digits(3))
                 .then()
                 .spec(respSpec)
                 .log().all();

@@ -1,32 +1,31 @@
 package otus.ru.rest.api;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import otus.ru.rest.api.services.UserApi;
+import org.junit.jupiter.api.*;
 
-public class UserTest {
+public class UserTest extends BaseTest {
+
+    @BeforeEach
+    public void createUser() {
+        userApi.createUser(userApi.respSpecForUserCreateOrUpdate());
+    }
+
+    @AfterEach
+    public void deleteUser() {
+        userApi.deletePurchasedOrder(userApi.respSpecDeleteOrder());
+    }
 
     @Test
-    @DisplayName("Check creation user, get created user and delete created order")
+    @DisplayName("Check creation user")
     public void checkCreationUser() {
-
-        UserApi userApi = new UserApi();
-
-        userApi.createUser(userApi.respSpecForUserCreateOrUpdate())
-                .findAndCheckCreatedUser(userApi.respSpecForGet())
-                .deletePurchasedOrder(userApi.respSpecDeleteOrder());
+        userApi.findAndCheckCreatedUser(userApi.respSpecForGet());
     }
 
     @Test
     @DisplayName("Check updating user")
     public void checkUpdatingUser() {
 
-        UserApi userApi = new UserApi();
-
-        userApi.createUser(userApi.respSpecForUserCreateOrUpdate())
-                .findAndCheckCreatedUser(userApi.respSpecForGet())
+        userApi.findAndCheckCreatedUser(userApi.respSpecForGet())
                 .updateUser(userApi.respSpecForUserCreateOrUpdate())
-                .findAndCheckCreatedUser(userApi.respSpecForGet())
-                .deletePurchasedOrder(userApi.respSpecDeleteOrder());
+                .findAndCheckCreatedUser(userApi.respSpecForGet());
     }
 }

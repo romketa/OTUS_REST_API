@@ -9,30 +9,29 @@ import otus.ru.rest.api.dto.User;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
-
 public class UserApi extends BaseApi {
 
     public static final String USER = "/user";
 
-    public static final Long ID = 10L;
+    public static final Long ID = faker.number().randomNumber();
 
-    public static final String EMAIL = "Ivan_Ivanov@mail.ru";
+    public static final String EMAIL = faker.internet().emailAddress();
 
-    public static final String FIRST_NAME = "Ivan";
+    public static final String FIRST_NAME = faker.address().firstName();
 
-    public static final String LAST_NAME = "Ivanov";
+    public static final String LAST_NAME = faker.address().lastName();
 
-    public static final String UPDATED_FIRST_NAME = "Petr";
+    public static final String UPDATED_FIRST_NAME = faker.address().firstName();
 
-    public static final String UPDATED_LAST_NAME = "Petrov";
+    public static final String UPDATED_LAST_NAME = faker.address().lastName();
 
-    public static final String PASSWORD = "Password";
+    public static final String PASSWORD = faker.address().lastName();
 
-    public static final String USERNAME = "Login";
+    public static final String USERNAME = faker.internet().password();
 
-    public static final String PHONE = "89127568971";
+    public static final String PHONE = faker.phoneNumber().phoneNumber();
 
-    public static final int USER_STATUS = 0;
+    public static final int USER_STATUS = faker.number().randomDigitNotZero();
 
     private ValidatableResponse validateCreationUser(User user, ResponseSpecification respSpec) {
         return given(reSpec)
