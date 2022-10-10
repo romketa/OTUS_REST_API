@@ -30,6 +30,7 @@
         <allure-maven.version>2.10.0</allure-maven.version>
         <aspectj.version>1.9.6</aspectj.version>
         <junit.platform.version>5.8.2</junit.platform.version>
+        <java.vintage.version>5.8.2</java.vintage.version>
     </properties>
 
     <dependencies>
@@ -64,6 +65,12 @@
             <artifactId>hamcrest</artifactId>
             <version>${hamcrest.version}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${java.vintage.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.assertj</groupId>
